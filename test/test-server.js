@@ -87,26 +87,26 @@ describe('Blobs', function() {
       });
   });
 
-  // it('should update a SINGLE blob on /blob/<id> PUT', function(done) {
-  //   chai.request(server)
-  //     .get('/blobs')
-  //     .end(function(err, res){
-  //       chai.request(server)
-  //         .put('/blob/'+res.body[0]._id)
-  //         .send({'name': 'Spider'})
-  //         .end(function(error, response){
-  //           response.should.have.status(200);
-  //           response.should.be.json;
-  //           response.body.should.be.a('object');
-  //           response.body.should.have.property('UPDATED');
-  //           response.body.UPDATED.should.be.a('object');
-  //           response.body.UPDATED.should.have.property('name');
-  //           response.body.UPDATED.should.have.property('_id');
-  //           response.body.UPDATED.name.should.equal('Spider');
-  //           done();
-  //       });
-  //     });
-  // });
+  it('should update a SINGLE blob on /blob/<id> PUT', function(done) {
+    chai.request(server)
+      .get('/blobs')
+      .end(function(err, res){
+        chai.request(server)
+          .put('/blob/'+res.body[0]._id)
+          .send({'name': 'Spider'})
+          .end(function(error, response){
+            response.should.have.status(200);
+            response.should.be.json;
+            response.body.should.be.a('object');
+            response.body.should.have.property('UPDATED');
+            response.body.UPDATED.should.be.a('object');
+            response.body.UPDATED.should.have.property('name');
+            response.body.UPDATED.should.have.property('_id');
+            response.body.UPDATED.name.should.equal('Spider');
+            done();
+        });
+      });
+  });
 
   it('should delete a SINGLE blob on /blob/<id> DELETE', function(done) {
     chai.request(server)

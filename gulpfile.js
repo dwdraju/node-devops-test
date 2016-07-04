@@ -5,16 +5,18 @@ var gulp = require('gulp'),
 var bgstart
 gulp.task('start', bgstart = bg('node', './index.js'))
 
+gulp.task('test', bgstart = bg('mocha'))
+
 function terminate () {
   bgstart.setCallback(function () { process.exit(0) })
   bgstart.stop(0)
 }
 
-gulp.task('test', ['start'], function () {
-  return gulp.src('./test/test-server.js', {read: false})
-  .pipe(mocha({reporter: 'nyan'}))
-  .once('end', terminate)
-  .once('error', terminate)
-})
+// gulp.task('test', ['start'], function () {
+//   return gulp.src('./test/test-server.js', {read: false})
+//   .pipe(mocha({reporter: 'nyan'}))
+//   .once('end', terminate)
+//   .once('error', terminate)
+// })
 
 gulp.task('default', ['start', 'test'])
