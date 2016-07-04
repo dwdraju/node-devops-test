@@ -1,10 +1,43 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var http = require('http');
+var mongoose = require('mongoose');
 
-app.get('/', function (req, res) {
-  res.status(200).send('Test & Deploy Successfull !!! Docker Hub webhook test and cheers !!!')
-})
+// *** routes *** //
+var routes = require('./routes/index.js');
 
-app.listen(8080, function () {
-  console.log('App listening at localhost:8080')
-})
+// *** express instance *** //
+var app = express();
+
+// *** config file *** //
+var config = require('./config');
+
+// *** mongoose *** ///
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+  if(err) {
+    console.log('Error connecting to the database. ' + err);
+  } else {
+    console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+  }
+});
+
+// *** config middleware *** //
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../client/public')));
+
+// *** main routes *** //
+app.use('/', routes);
+
+// *** server config *** //
+var server   = http.createServer(app);
+server.listen(8080, function() {
+  console.log("Node server running on http://localhost:8080");
+});
+
+module.exports = app;
