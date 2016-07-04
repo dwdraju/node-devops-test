@@ -1,0 +1,10 @@
+language: node_js
+
+sudo: false
+
+node_js:
+  - "6.2.2"
+
+after_success:
+  - |
+      curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/dwdraju/node-devops-test/trigger/6775840b-1d72-412e-a4e1-e3bc9ade5a05/
