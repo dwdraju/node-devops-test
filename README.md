@@ -1,6 +1,6 @@
 # Node Devops Testing
 
-Testing introduction and deploy automation using Travis-CI, DockerHub, DockerCloud and DigitalOcean
+Testing introduction and deploy automation using Travis-CI, DockerHub, DockerCloud and AWS
 
 Used:
 - Express.js [server]
